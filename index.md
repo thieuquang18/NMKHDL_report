@@ -1,27 +1,42 @@
-# Milestones 1-2 | arXiv Data Pipeline
+# Milestones 1–2 — arXiv Data Pipeline
 
-**HCMUS | Introduction to Data Science | Student ID: 24127114**
+**HCMUS | Introduction to Data Science | NAME: THIỀU QUANG | ID: 24127114**
 
-This Jupyter Book contains the cumulative reports for Milestone 1 (data
-crawling) and Milestone 2 (hierarchical parsing and standardization).
-Each report's tables and figures are generated from the submitted aggregate
-data when the book is built.
+This landing page introduces the cumulative Jupyter Book reports for
+Milestones 1 and 2. The detailed reports are listed in the sidebar.
 
-## Milestone 1 - Data Crawling
+## Project stages
 
-The assigned range is `2607.13694` through `2607.18693` (5,000 base IDs).
-The report documents version discovery, source downloads, metadata and
-reference collection, coverage, storage, and resource measurements.
+1. **Milestone 1 — Crawling arXiv:** collect version-specific source files
+   and publication-level reference metadata for the assigned papers.
+2. **Milestone 2 — Hierarchical parsing and standardization:** parse and
+   normalize LaTeX content, citations, and document structure.
 
-[Read the Milestone 1 report](milestone1)
+## Milestone 1 — Crawling arXiv
 
-## Milestone 2 - Hierarchical Parsing and Standardization
+**Assigned range:** `2607.13694` to `2607.18693` (5,000 base identifiers, inclusive).
 
-The report describes parsing the collected LaTeX sources into hierarchical
-documents, normalizing content, converting references, and evaluating
-coverage and parser quality.
+### Project scope
 
-[Read the Milestone 2 report](milestone2)
+1. Resolve each assigned arXiv ID and enumerate all available versions.
+2. Download every version-specific original source archive from arXiv and retain only `.tex` and `.bib`. Keep LaTeX figure commands, not the figure binaries.
+3. Retrieve publication-level reference metadata from Semantic Scholar, retaining all references in the working dataset and exporting the arXiv-identified subset for the two required tables.
+4. Measure crawl coverage, archive bytes before vs retained LaTeX bytes, reference coverage, time, RAM, and disk use.
 
-**Official specifications:** [Milestone 1](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/)
-and [Milestone 2](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/).
+The *actual* statistics, figures and tables below are generated during notebook compilation from exported local crawler logs. If data has not been synced yet, charts are omitted instead of presenting fabricated metrics.
+
+### Source and reliability policy
+
+- Atom API `id_list` can provide exact-version metadata, but it may return HTTP 429. OAI-PMH `arXivRaw` is used for targeted discovery and version dates when appropriate; it **does not provide historical titles/authors/abstracts for every revision**.
+- Source downloads are version-specific. PDF-only and source-free submissions are counted explicitly, and must not be confused with network errors.
+- Semantic Scholar provides references at **publication level**, not necessarily per version. A reference publication date from Semantic Scholar is **not** substituted for its first arXiv submission date.
+- Failed requests remain retryable; a partial result is not described as 100% success.
+
+**Official specification:** <https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/>
+
+## Milestone 2 — Hierarchical Parsing and Standardization
+
+This stage parses the crawled source files, standardizes their content,
+and builds structured document hierarchies.
+
+[Open the Milestone 2 report](milestone2)

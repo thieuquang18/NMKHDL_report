@@ -6,13 +6,15 @@ course statement.
 
 ## Environment and data
 
-Use Python 3.11 and install the report dependencies from this directory:
+Use Node.js 24 and Python 3.11, then install the MyST CLI and notebook
+dependencies from this directory:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+npm install --global mystmd@1.12.0
 ```
 
 The notebooks read aggregate crawler and parser results from `report_data/`.
@@ -25,16 +27,17 @@ python .\src\sync_report.py --data .\data --report ..\report_repo
 
 Only aggregate JSON/CSV/JSONL files are copied. Downloaded archives, extracted TeX, and complete citation corpora remain in the source repository's local data directory.
 
-## Build locally
+## Build locally with MyST
 
 From `report_repo`:
 
 ```powershell
-jupyter-book build .
+myst build --html --execute --execute-parallel 1
 ```
 
 Open `_build/html/index.html` and review both milestone pages, the rendered
-tables, and charts. Notebook execution is enabled during the build.
+tables, and charts. The MyST book theme displays its “Made with MyST” branding.
+Notebook execution is enabled during the build.
 
 ## Current Colab CPU-only measurements
 
@@ -50,7 +53,7 @@ The Colab record reports a final output-directory size of **10.5 MiB**. The **1.
 
 1. Push this report directory to a separate public GitHub repository on branch `24127114`.
 2. In **Settings > Pages**, select **GitHub Actions** as the build/deploy source.
-3. The included `.github/workflows/pages.yml` builds the Jupyter Book and deploys `_build/html`.
+3. The included `.github/workflows/pages.yml` builds the MyST site and deploys `_build/html`.
 4. Confirm the Pages URL is live, then submit it together with the source-code repository URL.
 
 ## Data caveats

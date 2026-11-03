@@ -1,9 +1,11 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: Build Milestone 1-2 Jupyter Book and publish Pages
+name: Build MyST site and publish Pages
 "on":
   push:
     branches: ['24127114']
   workflow_dispatch:
+env:
+  BASE_URL: /NMKHDL_report
 permissions:
   contents: read
   pages: write
@@ -19,14 +21,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install Jupyter Book
+      - name: Install notebook dependencies
         run: python -m pip install -r requirements.txt
-      - name: Build notebook and figures
-        run: jupyter-book build .
-      - uses: actions/configure-pages@v5
+      - name: Install MyST Markdown
+        run: npm install --global mystmd@1.12.0
+      - name: Build MyST site and execute notebooks
+        run: myst build --html --execute --execute-parallel 1
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _build/html
