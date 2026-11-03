@@ -12,4 +12,4 @@ project:
 site:
   template: book-theme
   options:
-    logo_text: arXiv Corpus — Project Report
+    logo_text: Made with MyST
