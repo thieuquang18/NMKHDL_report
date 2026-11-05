@@ -34,9 +34,9 @@ The *actual* statistics, figures and tables below are generated during notebook 
 
 **Official specification:** <https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/>
 
-## Milestone 2 — Hierarchical Parsing and Standardization
+## Milestone — Reference Matching Pipeline
 
 This stage parses the crawled source files, standardizes their content,
 and builds structured document hierarchies.
 
-[Open the Milestone 2 report](milestone2)
+[Open the milestone report](milestone)
